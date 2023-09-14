@@ -1,0 +1,86 @@
+
+<?php
+include('Userheader.php');
+include_once("config.php");  
+?>
+
+
+<div align="center">
+
+
+
+
+<form action="" name="register"  id="register" method="post">
+<style> 
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+	<br>
+
+
+
+<h1>Status Details</h1>
+
+	<table border="2" cellspacing="6" class="displaycontent" width="1200" height="120" style="border:10px solid #D33C10;" align="center">
+	<tr>
+	    
+			<th bgcolor=#052E0B><font color=white size=2>Id</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Service Id</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>User id</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Electronics</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Brand</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Status</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Date</font></th>
+				<th bgcolor=#052E0B><font color=white size=2>Service engineer</font></th>
+				<th bgcolor=#052E0B><font color=white size=2>Amount</font></th>
+					<th bgcolor=#052E0B><font color=white size=2>Pay</font></th>
+			
+			
+			  
+	</tr>
+	
+	<?php
+	
+	$query = "select * from status where Uid='".$_SESSION['login_user']."'";
+	$result = mysql_query($query) or die(mysql_error());
+	while($row = mysql_fetch_assoc($result))
+		{
+ ?>
+	<tr>
+		
+       
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['id']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Serviceid']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Uid']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Electronics']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Brand']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Status']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Sdate']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Serviceeng']; ?></font></td>
+			<td bgcolor=white><font color=#000000 size=2><?php echo $row['Amt']; ?></font></td>
+					<td bgcolor=white><font color=#000000 size=2><a href="Appoinment.php?select=<?php echo $row['id'];?>">Pay Here</a></font></td>
+		
+		
+	</tr>
+	<?php }  ?>
+	
+	</table>
+	<br>
+	</form>
+</div>
+
+
+
+<?php
+
+include('footer.php');
+?>
+ 
+

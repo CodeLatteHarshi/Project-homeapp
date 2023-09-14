@@ -1,0 +1,164 @@
+
+<?php
+include('Adminheader.php');
+include_once("config.php");  
+?>
+
+
+<div align="center">
+
+
+
+
+<form action="" name="register"  id="register" method="post">
+<style> 
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
+	<br>
+<table>
+<tr>
+<td>
+<h3>Service Request</h3>
+</td>
+</tr>
+
+</table>
+
+	<table border="0" cellspacing="4" cellspadding="4"  class="displaycontent"  width="300" height="300">
+		
+	<tr>
+		<td class="col" style="color: #000000">Employee Id:</td>
+		<td><input type="text" name="t1" value=""  style="color: #000000" class="required" /></td>
+	</tr>
+	
+	<tr>
+		<td class="col" style="color: #000000">Employee Name:</td>
+		<td><input type="text" name="t2" value=""  style="color: #000000" class="required email"  /></td>
+	</tr>
+	<tr>
+		<td class="col" style="color: #000000">Address:</td>
+		<td><input type="text" name="t3" value=""  style="color: #000000" class="required email"  /></td>
+	</tr>
+	
+	
+	<tr>
+		<td class="col"  style="color: #000000">Mobile:</td>
+		<td><input type="text" name="t4" value=""  style="color: #000000" class="required"  /></td>
+	</tr>
+
+	<tr>
+		<td class="col"  style="color: #000000">Email id:</td>
+		<td><input type="text" name="t5" value=""  style="color: #000000" class="required"  /></td>
+	</tr>
+	
+	
+
+	<tr>
+		<td>&nbsp;</td>
+		<td >
+			<input type="submit" name="register" value="Add"  style="color: #000000"/>
+		     	
+		</td>
+	</tr>
+
+	
+		
+	
+	</table>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</br>
+
+<h1>Employee Details</h1>
+
+	<table border="2" cellspacing="6" class="displaycontent" width="1200" height="120" style="border:10px solid #D33C10;" align="center">
+	<tr>
+	    
+			<th bgcolor=#052E0B><font color=white size=2>Employee Id</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Name </font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Address</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Mobile</font></th>
+			<th bgcolor=#052E0B><font color=white size=2>Emailid</font></th>
+			
+				
+			 <th bgcolor=#052E0B><font color=white size=2>Delete</font></td>
+			  
+	</tr>
+	
+	<?php
+	
+	$query = "select * from Employee";
+	$result = mysql_query($query) or die(mysql_error());
+	while($row = mysql_fetch_assoc($result))
+		{
+ ?>
+	<tr>
+		
+       
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Empid']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Empname']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Addr']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Mob']; ?></font></td>
+		<td bgcolor=white><font color=#000000 size=2><?php echo $row['Email']; ?></font></td>
+			
+		<td bgcolor=white><font color=#000000 size=2><a href="?delete=<?php echo $row['Empid'];?>">Delete</a></font></td>
+		
+	</tr>
+	<?php }  ?>
+	
+	</table>
+	<br>
+	</form>
+</div>
+
+
+<?php
+
+
+
+ if(isset($_POST['register']))
+	 {
+
+	
+	 	         		
+	$query = "INSERT INTO `Employee`"; 
+	$query .= " VALUES ('".$_POST['t1']."','".$_POST['t2']."', '".$_POST['t3']."','".$_POST['t4']."', '".$_POST['t5']."')";
+         
+		//  echo $query;
+	if(mysql_query($query)){
+		echo ' SUCCESSFULLY';
+	  echo '<script> alert("REGISTERED SUCCESSFULLY");</script>';
+	}
+	else{
+		echo 'NOT REGISTERD';
+	}
+header("location:Addemp.php");
+//	exit;
+ 
+ }
+
+?>
+
+<?php
+
+if(isset($_GET['delete']))
+	{
+	
+	$query = "delete from Employee where Empid='".$_GET['delete']."'";
+	mysql_query($query);
+		echo '<script>alert("Deleted");</script>';
+	
+		
+header("location:Addemp.php");
+	exit;
+	}
+include('footer.php');
+?>
+ 
+

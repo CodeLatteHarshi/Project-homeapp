@@ -1,0 +1,104 @@
+<?php
+include('header1.php');
+?>
+<div align="center">
+<script type="text/javascript">	
+  $(document).ready(function(){
+    $("#register_form").validate();
+  });
+</script>
+<form action="register.php" name="register_form"  id="register_form"  method="post">
+		<table>
+<tr>
+<td>
+<h1>Register</h1>
+</td>
+</tr>
+	</table>
+	<table border="1" cellspacing="4" cellspadding="4"   class="displaycontent"  width="300" height="300">
+	<caption></caption>
+	<tr>
+		
+	<tr>
+	<tr>
+		<td class="col">Name:</td>
+		<td><input type="text" name="t1"  value="" /></td>
+	</tr>
+
+	<tr>
+		<td class="col">User ID:</td>
+		<td><input type="text" name="t2" value="" class="required" /></td>
+	</tr>
+
+	<tr>
+		<td class="col">Password:</td>
+		<td><input type="password" name="t3" value="" class="required" /></td>
+	</tr>
+	<tr>
+		<td class="col">Email:</td>
+		<td><input type="text" name="t4" value="" class="required email"  /></td>
+	</tr>
+	
+	
+	<tr>
+		<td class="col">Address:</td>
+		<td><input type="text" name="t5" value="" class="required"  /></td>
+	</tr>
+
+	<tr>
+		<td class="col"  >Mobile:</td>
+		<td><input type="text" class="required" onkeypress="return numbers(event);" name="t6" value="" /></td>
+	</tr>
+	
+
+	<tr>
+		<td>&nbsp;</td>
+		<td >
+			<input type="submit" name="register" value="Register" />
+		     	<input type="Reset"  value="Reset" />
+		</td>
+	</tr>
+
+	
+		
+	
+	</table>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="login.php">BACK</a>
+	</form>
+</div>
+
+
+<?php
+ include_once("config.php");  
+ if(isset($_POST['register'])){
+	 if($_POST['t1']=="" || $_POST['t2']=="" || $_POST['t3']=="" || $_POST['t4']=="" || $_POST['t5']=="" || $_POST['t6']=="" )
+	 {
+		 echo '<script> alert("PLEASE FILL THE DETAILS");</script>';
+	 }
+	 else
+	 {
+	$query = "INSERT INTO `tab_user` VALUES ('".$_POST['t1']."', '".$_POST['t2']."', '".$_POST['t3']."', '".$_POST['t4']."', '";
+	$query .=  $_POST['t5']."', '";
+	$query .= $_POST['t6']."')";
+        echo '<script> alert("PREGISTERD SUCCESSFULLY");</script>';
+//	echo $query;exit;
+   
+	if(mysql_query($query)){
+		echo 'REGISTERD SUCCESSFULLY';
+
+	}
+	else{
+		echo 'NOT REGISTERD';
+	}
+	header("location:login.php");
+	exit;
+ }
+ }
+
+?>
+
+<?php
+include('footer.php');
+?>
+ 
+
